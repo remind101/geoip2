@@ -73,7 +73,7 @@ module Geoip2
     #
     # @return an instance of Faraday initialized with all that this gem needs
     def connection(faraday_options = {})
-      if @faraday_options != faraday_options
+      if @faraday_options != faraday_options || @connection.nil?
         options = {url: @base_url, parallel_manager: Typhoeus::Hydra.new(max_concurrency: @parallel_requests)}.merge(faraday_options)
         @faraday_options = faraday_options
         @connection = Faraday.new(options) do |conn|
